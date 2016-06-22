@@ -29,7 +29,7 @@ export class GoogleScholarMetadataService {
      * @param metaTagService`
      *      MetaTagService is a singleton service to add and remove <meta> tags to the DOM.
      */
-    constructor(@Inject(MetaTagService) private metaTagService: MetaTagService) {
+    constructor(@Inject(MetaTagService)  private metaTagService: MetaTagService) {
         this._googleScholarTags = new Array<MetaTag>();
     }
 
@@ -255,7 +255,7 @@ export class GoogleScholarMetadataService {
             return false;
         }
         return ObjectUtil.hasValue(
-            this._item.getmetadata().find((metadatum: Metadatum) => {
+            this._item.getMetadata().find((metadatum: Metadatum) => {
                 return metadatum.key === 'dc.type'
                     && metadatum.value === 'Thesis';
             })
@@ -273,7 +273,7 @@ export class GoogleScholarMetadataService {
             return false;
         }
         return ObjectUtil.hasValue(
-            this._item.getmetadata().find((metadatum: Metadatum) => {
+            this._item.getMetadata().find((metadatum: Metadatum) => {
                 return metadatum.key === 'dc.type'
                     && metadatum.value === 'Technical Report';
             })
@@ -301,13 +301,13 @@ export class GoogleScholarMetadataService {
         let values: Array<string> = new Array<string>();
         if (ObjectUtil.hasValue(this._item)) {
             if (stopAfterFirstMatch) {
-                let value = this.getFirstValueFor(this._item.getmetadata(), metadataKeys);
+                let value = this.getFirstValueFor(this._item.getMetadata(), metadataKeys);
                 if (ObjectUtil.hasValue(value)) {
                     values.push(value);
                 }
             }
             else {
-                values = this.getValuesFor(this._item.getmetadata(), metadataKeys);
+                values = this.getValuesFor(this._item.getMetadata(), metadataKeys);
                 if (combineInSingleTag) {
                     values = [values.join('; ')];
                 }

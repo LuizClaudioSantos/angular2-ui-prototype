@@ -6,7 +6,7 @@ import { MetadataHelper } from '../../../utilities/metadata.helper';
 import { Metadatum } from '../../models/metadatum.model'
 import { ViewElementComponent } from './view-element.component'
 
-import { ViewComponent } from '../../models/viewcomponent.model';
+import { ViewComponent } from '../../models/view-component.model';
 
 /**
  * Component for the authors of the simple-item-view.
@@ -17,7 +17,7 @@ import { ViewComponent } from '../../models/viewcomponent.model';
     directives: [ ViewElementComponent ],
     pipes: [ TruncateDatePipe, TranslatePipe ],
     template: `
-                <view-element [header]="componentTitle | translate">
+                <view-element [header]="componentTitle | translate" class="simple-item-view-date">
                     <div *ngFor="let metadatum of filteredFields">
                         <p>{{ metadatum.value | truncatedate }}</p>
                         <!-- calling our truncate pipe without arguments will is equals to truncate : 10. (Display the first 10 chars or the string) -->

@@ -1,8 +1,12 @@
 ﻿import { Component, Input } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
+import { TranslatePipe } from "ng2-translate/ng2-translate";
+
 import { ListComponent } from './list.component';
 import { PaginationComponent } from './pagination.component';
+
+import { TruncatePipe } from '../../utilities/pipes/truncate.pipe';
 
 /**
  * Tree component for navigation through the dspace index of
@@ -17,31 +21,45 @@ import { PaginationComponent } from './pagination.component';
                   TreeComponent,
                   ListComponent,
                   PaginationComponent ],
-    template: `
-                <ul class="list-group">
-                    <li *ngFor="let hierarchy of hierarchies" class="list-group-item">
-                        <span *ngIf="collapsedCommunity(hierarchy)" (click)="hierarchy.toggle()" class="glyphicon glyphicon-plus clickable"></span>
-                        <span *ngIf="expandedCommunity(hierarchy)" (click)="hierarchy.toggle()" class="glyphicon glyphicon-minus clickable"></span>
-                        <span *ngIf="collapsedCollection(hierarchy)" (click)="hierarchy.toggle()" class="glyphicon glyphicon-folder-close clickable"></span>
-                        <span *ngIf="expandedCollection(hierarchy)" (click)="hierarchy.toggle()" class="glyphicon glyphicon-folder-open clickable"></span>
+    pipes: [ TranslatePipe, TruncatePipe ],
+    template: ` 
+                <ul class="hierarchy-list-group">
+                    <!-- Create an unordered list of all objects in our hierarchy, including expanded sub-hierarchies -->
+                    <li *ngFor="let hierarchy of hierarchies" class="hierarchy-list-group-item">
+                        
+                        <!-- Display clickable open/close icons -->
+                        <span *ngIf="collapsedCommunity(hierarchy)" (click)="hierarchy.toggle()" class="ion-icon ion-ios-arrow-down clickable"></span>
+                        <span *ngIf="expandedCommunity(hierarchy)" (click)="hierarchy.toggle()" class="ion-icon ion-ios-arrow-up clickable"></span>
+                        <span *ngIf="collapsedCollection(hierarchy)" (click)="hierarchy.toggle()" class="ion-icon ion-ios-arrow-down clickable"></span>
+                        <span *ngIf="expandedCollection(hierarchy)" (click)="hierarchy.toggle()" class="ion-icon ion-ios-arrow-up clickable"></span>
 
                         <!-- Router link -->
-                        <a *ngIf="!page(hierarchy)" [routerLink]="[hierarchy.component, {id:hierarchy.id}]">{{ hierarchy.name }}</a>
-                        <a *ngIf="pageWithoutLimit(hierarchy)" [routerLink]="[hierarchy.component, {id:hierarchy.id, page: hierarchy.page}]">{{ hierarchy.name }}</a>
-                        <a *ngIf="pageWithLimit(hierarchy)" [routerLink]="[hierarchy.component, {id:hierarchy.id, page: hierarchy.page, limit: hierarchy.limit}]">{{ hierarchy.name }}</a>
+                        <a *ngIf="!page(hierarchy)" [routerLink]="[hierarchy.component, {id:hierarchy.id}]">{{ hierarchy.name | truncate:[50] }}</a>
+                        <a *ngIf="pageWithoutLimit(hierarchy)" [routerLink]="[hierarchy.component, {id:hierarchy.id, page: hierarchy.page}]">{{ hierarchy.name | truncate:[50] }}</a>
+                        <a *ngIf="pageWithLimit(hierarchy)" [routerLink]="[hierarchy.component, {id:hierarchy.id, page: hierarchy.page, limit: hierarchy.limit}]">{{ hierarchy.name | truncate:[50] }}</a>
 
-                        <span *ngIf="community(hierarchy)" class="badge">{{ hierarchy.countItems }}</span>
-                        <span *ngIf="collection(hierarchy)" class="badge">{{ hierarchy.numberItems }}</span>
+                        <!-- Display item counts for Communities / Collections -->
+                        <span *ngIf="community(hierarchy)" class="badge hierarchy-badge">{{ hierarchy.countItems }}</span>
+                        <span *ngIf="collection(hierarchy)" class="badge hierarchy-badge">{{ hierarchy.numberItems }}</span>
+                        
+                        <!-- Short description -->
+                        <p *ngIf="hasShortDescription(hierarchy)" class="hierarchy-short-description">{{ hierarchy.shortDescription | truncate:[50] }}</p>
+
+                        <!-- If Community expanded, show sub-tree of child communities / collections -->
                         <div *ngIf="expandedCommunity(hierarchy)">
                             <tree [hierarchies]="subCommunitiesAndCollections(hierarchy)"></tree>
                         </div>
+
+                        <!-- If Collection expanded, show pagination list of items -->
                         <div *ngIf="expandedCollectionWithItems(hierarchy)">
                             <list [collection]="hierarchy"></list>
                         </div>
+
                     </li>
                 </ul>
               `
 })
+
 export class TreeComponent {
 
     /**
@@ -127,6 +145,13 @@ export class TreeComponent {
      */
     private pageWithLimit(hierarchy: any): boolean {
         return this.page(hierarchy) && hierarchy.limit;
+    }
+
+    /**
+     *
+     */
+    private hasShortDescription(hierarchy: any): boolean {
+        return hierarchy.shortDescription ? true : false;
     }
 
 }

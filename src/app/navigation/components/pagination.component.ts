@@ -19,16 +19,16 @@ import { PaginationService } from '../services/pagination.service';
                             <li class="previous" [class.disabled]="firstPage()">
                                 <!-- Router Link -->
                                 <a *ngIf="!firstPage()" [routerLink]="[component, {id: context.id, page: previous, limit: context.limit}]" (click)="page(context.id, previous)">
-                                    <span aria-label="Previous"><span aria-hidden="true"><span class="glyphicon glyphicon-backward"></span> Previous</span></span>
+                                    <span aria-label="Previous"><span aria-hidden="true"><span class="ion-icon ion-ios-arrow-back"></span> Previous</span></span>
                                 </a>
-                                <span *ngIf="firstPage()" aria-label="Previous"><span aria-hidden="true"><span class="glyphicon glyphicon-backward"></span> Previous</span></span>
+                                <span *ngIf="firstPage()" aria-label="Previous"><span aria-hidden="true"><span class="ion-icon ion-ios-arrow-back"></span> Previous</span></span>
                             </li>
                             <li class="next" [class.disabled]="lastPage()">
                                 <!-- Router Link -->
                                 <a *ngIf="!lastPage()" [routerLink]="[component, {id: context.id, page: next, limit: context.limit}]" (click)="page(context.id, next)">
-                                    <span aria-label="Next"><span aria-hidden="true">Next <span class="glyphicon glyphicon-forward"></span></span></span>
+                                    <span aria-label="Next"><span aria-hidden="true">Next <span class="ion-icon ion-ios-arrow-forward"></span></span></span>
                                 </a>
-                                <span *ngIf="lastPage()" aria-label="Next"><span aria-hidden="true">Next <span class="glyphicon glyphicon-forward"></span></span></span>
+                                <span *ngIf="lastPage()" aria-label="Next"><span aria-hidden="true">Next <span class="ion-icon ion-ios-arrow-forward"></span></span></span>
                             </li>
                         </ul>
                     </nav>
@@ -89,7 +89,7 @@ export class PaginationComponent implements OnInit {
      */
     ngOnInit() {
         // TODO: figure out a better way to do this
-        if(this.router.hostComponent.name == "DashboardComponent" || this.router.hostComponent.name == "CommunityComponent") {
+        if(this.router.hostComponent.name == "HomeComponent" || this.router.hostComponent.name == "CommunityComponent") {
             this.component = "/"
         }
         else {
@@ -100,7 +100,7 @@ export class PaginationComponent implements OnInit {
     }
 
     /**
-     * Method to page on the dashboard. Does not navigate, only requests next page.
+     * Method to page. Does not navigate, only requests next page.
      *
      * @param page
      *          The page being navigated to.
@@ -113,7 +113,7 @@ export class PaginationComponent implements OnInit {
             id:  this.context.id,
             page:  this.context.page
         })
-        // only page here if on dashboard or community component and paging this context id
+        // only page here if on homepage or community component and paging this context id
         if(this.component == "/" && this.context.id == id) {
             this.context.page = page;
             this.context.offset = this.context.page > 1 ? (this.context.page - 1) * this.context.limit : 0;

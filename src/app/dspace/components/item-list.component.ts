@@ -1,8 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { RouteParams } from '@angular/router-deprecated';
-
-import { DSpaceHierarchyService } from '../services/dspace-hierarchy.service';
-import { DSpaceService } from '../services/dspace.service';
+import { TranslatePipe } from "ng2-translate/ng2-translate";
 
 import { ListEntryComponent } from './item/list/list-entry.component';
 import { Item } from '../models/item.model';
@@ -16,6 +13,7 @@ import { PaginationComponent } from '../../navigation/components/pagination.comp
 @Component({
     selector: 'item-list',
     directives: [ ListEntryComponent, PaginationComponent ],
+    pipes: [ TranslatePipe ],
     template: `
                 <!-- for each item, we create an item-list-entry element -->
                 <div *ngFor="let item of items" id="list-entries" class="row item-list-row">

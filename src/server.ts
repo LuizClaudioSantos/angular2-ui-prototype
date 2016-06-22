@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
 
 import 'angular2-universal/polyfills';
 
@@ -46,10 +47,19 @@ import { NotificationService } from './app/utilities/notification/notification.s
 import { PaginationService } from './app/navigation/services/pagination.service';
 import { PagingStoreService } from './app/dspace/services/paging-store.service';
 import { StorageService } from './app/utilities/services/storage.service';
+import { TempServerStorageService } from './app/utilities/services/temp-server-storage.service';
+import { SidebarService } from './app/utilities/services/sidebar.service';
+import { ViewportService } from "./app/utilities/services/viewport.service";
+
 
 // Disable Angular 2's "development mode".
 // See: https://angular.io/docs/ts/latest/api/core/enableProdMode-function.html
 enableProdMode();
+
+// multer
+var multer = require("multer");
+
+
 
 // Default to port 3000
 var PORT = 3000;
@@ -60,6 +70,18 @@ let app = express();
 
 // Root directory of our app is the top level directory (i.e. [src])
 let root = path.join(path.resolve(__dirname, '..'));
+
+
+
+// Enable compression of all compressible formats
+// This speeds up initial download of CSS, HTML, JS files, etc.
+app.use(compression());
+
+// Define location of Static Resources
+// Map the /static URL path to the ./dist/server/static local directory
+app.use('/static', express.static(path.join(root, 'dist', 'server', 'static'), {index:false}));
+// Other static resources (e.g. our compiled app.bundle.js) can be found directly in ./dist
+app.use(express.static(path.join(root, 'dist'), {index:false}));
 
 // Create an express "middleware" function which embeds CORS headers (http://enable-cors.org/)
 // into any response we receive.
@@ -87,12 +109,7 @@ app.set('views', __dirname + '/app/view');
 app.set('view engine', 'html');
 
 app.use(bodyParser.json());
-
-// Define location of Static Resources
-// Map the /static URL path to the ./dist/server/static local directory
-app.use('/static', express.static(path.join(root, 'dist', 'server', 'static'), {index:false}));
-// Other static resources (e.g. our compiled app.bundle.js) can be found directly in ./dist
-app.use(express.static(path.join(root, 'dist'), {index:false}));
+//app.use(bodyParser.urlencoded({extended : true}));
 
 // Port to use
 app.set('port', PORT);
@@ -123,6 +140,9 @@ function ngApp(req, res) {
                 deps: [ Http ]
             }),
             AuthorizationService,
+            provide(StorageService, {
+                useFactory: () => new TempServerStorageService()
+            }),
             BreadcrumbService,
             ContextProviderService,
             DSpaceConstantsService,
@@ -136,8 +156,9 @@ function ngApp(req, res) {
             NotificationService,
             PaginationService,
             PagingStoreService,
-            StorageService,
-            TranslateService
+            TranslateService,
+            SidebarService,
+            ViewportService
         ],
         preboot: {
             appRoot: 'dspace',
@@ -159,8 +180,49 @@ function ngApp(req, res) {
     });
 }
 
+
+
+var fs = require('fs');
+
+var sidebarPath = root+"/resources/userdata/sidebar.json";
+
+/**
+ * Reads the local file saved under "sidebarPath" from the server.
+ * the access point is /custom-sidebar, and it has to be a GET request.
+ * Will send the data, which is in JSON format.
+ */
+app.get("/custom-sidebar", function(req,res) {
+    // read the file
+    fs.readFile(sidebarPath, "utf8", function(err, data) {
+        if(err) {
+            // print the error to the console.
+            console.log(err);
+        }
+        res.send(data);
+    });
+});
+
+/**
+ * Write the incomming data to a local file.
+ * The file is stored in the specified sidebarPath.
+ * Data is stored in JSON format.
+ */
+app.post("/custom-sidebar",function(req, res) {
+    let jsoninput = req.body;
+    let formatted = JSON.stringify(jsoninput);
+    fs.writeFile(sidebarPath, formatted, function(err) {
+        if(err) {
+            return console.log(err);
+        }
+    });
+    res.send("wrote data");
+});
+
+
+
 // Specifies that all server-side paths should be routed to our ngApp function (see above)
 app.get('/*', ngApp);
+
 
 // Binds our express app the the specified port (i.e. starts it up) and logs when it is running
 app.listen(PORT, () => {

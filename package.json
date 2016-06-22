@@ -17,14 +17,14 @@
     "Dylan Meeus <dylan.meeus@atmire.com>"
   ],
   "scripts": {
-    "global": "npm install --global http-proxy nodemon npm-check-updates rimraf ts-node typedoc typescript typings webpack",
+    "global": "npm install --global http-proxy nodemon npm-check-updates rimraf ts-node typedoc typescript typings webpack node-sass",
     "preinstall": "npm run global",
     "postinstall": "typings install",
     "prebuild": "rimraf dist",
-    "build": "webpack",
+    "build": "webpack && node-sass resources/styles -o dist/server/static/css --precision 10 --source-comments true",
     "clean": "rimraf ./node_modules",
     "docs": "typedoc --options typedoc.json ./src",
-    "watch": "concurrently \"webpack -w\" \"nodemon --debug dist/server/bundle.js\" \"ts-node src/proxy.ts -i true\"",
+    "watch": "concurrently \"webpack -w\" \"nodemon --debug dist/server/bundle.js\" \"ts-node src/proxy.ts -i true\" \"node-sass -w -r resources/styles -o dist/server/static/css --precision 10 --source-comments true\"",
     "test": "concurrently \"nodemon dist/server/bundle.js\" \"ts-node src/proxy.ts -i true\""
   },
   "dependencies": {
@@ -36,21 +36,24 @@
     "@angular/platform-browser-dynamic": "2.0.0-rc.1",
     "@angular/platform-server": "2.0.0-rc.1",
     "@angular/router-deprecated": "2.0.0-rc.1",
-    "angular2-universal": "0.101.3",
+    "angular2-universal": "0.101.9",
     "body-parser": "1.15.1",
-    "bootstrap": "3.3.6",
+    "bootstrap-sass": "3.3.6",
+    "compression": "1.6.2",
+    "multer" : "1.1.0",
     "express": "4.13.4",
-    "ng2-bootstrap": "^1.0.16",
+    "ng2-bootstrap": "1.0.17",
+    "ng2-file-upload": "1.0.3",
     "ng2-translate": "2.1.0",
     "object-hash": "1.1.2",
     "preboot": "2.1.2",
     "rxjs": "5.0.0-beta.6"
   },
   "devDependencies": {
-    "codelyzer": "0.0.19",
+    "codelyzer": "0.0.20",
     "commander": "2.9.0",
     "concurrently": "2.1.0",
-    "copy-webpack-plugin": "3.0.0",
+    "copy-webpack-plugin": "3.0.1",
     "http-proxy": "1.13.3",
     "nodemon": "1.9.2",
     "rimraf": "2.5.2",
@@ -58,10 +61,10 @@
     "ts-node": "0.7.3",
     "tslint": "3.10.2",
     "tslint-loader": "2.1.4",
-    "typedoc": "0.3.12",
+    "typedoc": "0.4.1",
     "typescript": "1.8.10",
-    "typings": "0.8.1",
+    "typings": "1.0.4",
     "webpack": "1.13.1",
-    "webpack-merge": "0.12.0"
+    "webpack-merge": "0.14.0"
   }
 }

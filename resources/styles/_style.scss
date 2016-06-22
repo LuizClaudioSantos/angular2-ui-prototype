@@ -1,0 +1,192 @@
+html, body {
+    font-weight: 300;
+}
+
+.space-top {
+    margin-top: 6px;
+}
+
+.space-right {
+    margin-right: 10px;
+}
+
+.list-group .list-group-item .glyphicon {
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.form-inline select {
+    margin-left: 15px;
+}
+
+.thumbnail-placeholder {
+    width: 93px;
+    height: 120px;
+}
+
+
+.validation-helper {
+    margin-left: 5px;
+}
+
+.form-modal {
+    opacity: 0;
+    display: none;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+.form-modal-fadein {
+    opacity: 1;
+    display: block;
+}
+
+.form-loader {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.fixed-glyphicon-size {
+    font-size: 18px;
+}
+
+.fixed-validation-size {
+    font-size: 18px;
+}
+
+.loader-center {
+    text-align: center;
+}
+
+.loader-message {
+    margin-bottom: 5px;
+}
+
+.loader-gif {
+    margin-bottom: 5px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/* sidebar theming */
+
+.sidebar-edit-section{
+    border: 1px solid #ddd;
+    margin-bottom:40px;
+}
+
+/** File Upload theming **/
+.file-drop-zone {
+    border: dotted 3px lightgray;
+}
+.file-over-drop-zone {
+    border: dotted 3px red;
+}
+
+/* bootstrap overrides */
+
+.navbar {
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
+
+.list-group {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 0;
+}
+
+.pagination {
+    display: inherit;
+}
+
+.item-list-row{
+    margin-bottom: 20px;
+}
+
+.item-list-url{
+    font-size:16px;
+}
+
+.item-full-metadata-data-cell {
+    max-width: 495px;
+    white-space: normal;
+}
+
+.simple-view-element {
+    margin-bottom: $line-height-computed * 2;
+
+    .simple-view-element-header {
+        padding-bottom: (($line-height-computed / 2) - 1);
+        border-bottom: 1px solid $page-header-border-color;
+        font-weight: 600;
+    }
+
+}
+
+.simple-item-view-thumbnail {
+    margin-bottom: $line-height-computed;
+}
+
+
+/* if never changed, maybe consolidate */
+.item-full-metadata-label-cell,
+.item-full-metadata-data-cell,
+.item-full-metadata-language-cell,
+.simple-view-element-body p {
+    //optimize legibility for item metadata
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+.item-full-metadata-remove-cell {
+	font-weight: 400;
+    line-height: 1.7;
+    text-align: center;
+}
+
+.item-create .ion-icon,
+.admin-edit-sidebar .ion-icon{
+    font-size: $font-size-h2;
+}
+
+.item-create > tbody > tr > td {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.item-component-header,
+.browse-header {
+    margin-bottom: $line-height-computed;
+
+}
+
+.simple-item-view-abstract-contents {
+    white-space: pre-wrap;
+}
+
+/***********************/

@@ -2,7 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 
 import { TranslatePipe } from "ng2-translate/ng2-translate";
 
-import { ViewComponent } from '../../models/viewcomponent.model';
+import { ViewComponent } from '../../models/view-component.model';
 import { MetadataHelper } from '../../../utilities/metadata.helper';
 import { Metadatum } from '../../models/metadatum.model'
 import { ViewElementComponent } from './view-element.component';
@@ -16,7 +16,7 @@ import { ViewElementComponent } from './view-element.component';
     directives: [ ViewElementComponent ],
     pipes: [ TranslatePipe ],
     template: `
-                <view-element *ngIf="hasMetadata()" [header]="componentTitle | translate">
+                <view-element *ngIf="hasMetadata()" [header]="componentTitle | translate" class="simple-item-view-uri">
                     <div *ngFor="let metadatum of filteredFields;">
                         <!-- renders a clickable URI (in this case of the value inside dc.identifier.uri, e.g the handle)-->
                         <a [attr.href]="metadatum.value">{{ metadatum.value }}</a>

@@ -1,4 +1,12 @@
 {
+    "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+    "404.link.home-page": "Take me to the home page",
+    "404.page-not-found": "page not found",
+
+    "container.home.news": "News",
+
+    "collection.browse.header": "Browse",
+
     "collection.name.required": "Collection name is required.",
     "collection.name.minLength": "Collection name must have at least 4 characters.",
     "collection.name.maxLength": "Collection name must have at most 128 characters.",
@@ -12,6 +20,7 @@
     "collection.create.error": "Error creating collection {{name}}.",
 
     "community.recent-submissions": "Show recent submissions",
+    "community.home.browse": "Browse",
 
     "community.name.required": "Community name is required.",
     "community.name.minLength": "Community name must have at least 4 characters.",
@@ -30,24 +39,25 @@
     "context.create-item": "Create Item",
     "context.edit-item": "Edit Item",
 
-    "dashboard.recent-submissions": "Show recent submissions",
+    "footer.copyright": "copyright © 2002-2016",
+    "footer.link.dspace": "DSpace software",
+    "footer.link.duraspace": "DuraSpace",
 
-    "header.repository-name": "Angular 2 DSpace UI Prototype",
+    "header.repository-name": "Angular 2 DSpace",
     "header.home": "Home",
-    "header.dashboard": "Dashboard",
     "header.register": "Register",
     "header.login": "Login",
     "header.logout": "Logout",
+    "header.profile": "View Profile",
 
-    "home.title": "Home",
-    "home.welcome1": "Hello, World!",
-    "home.welcome2": "This is server side rendered",
-    "home.welcome3": "SEO + javascript",
+    "home.hierarchy": "Browse",
 
     "item.key": "Key",
     "item.value": "Value",
     "item.language": "Language",
     "item.metadata-number-indicator": "#",
+
+    "item.metadata.header": "Specify Metadata",
 
     "item.metadata.dc.contributor.author.required": "Author is required.",
     "item.metadata.dc.contributor.author.minLength": "Author must have at least 4 characters.",
@@ -88,9 +98,24 @@
     "item.metadata.dc.type.minLength": "Type must have at least 3 characters.",
     "item.metadata.dc.type.maxLength": "Type must have at most 128 characters.",
 
+    "item.create.header": "Create Item",
+    "item.create.type-select": "Select Type",
+    "item.create.reset-button": "Reset",
+    "item.create.submit-button": "Submit",
     "item.create.processing": "Item {{name}} is being created. Please wait.",
     "item.create.success": "Item {{name}} was created successfully.",
     "item.create.error": "Error creating Item {{name}}.",
+
+    "item.file-upload.header": "Upload file(s)",
+    "item.file-upload.select": "Choose file(s)",
+    "item.file-upload.drop": "OR Drop file(s) here",
+    "item.file-upload.queue.selected": "Selected Files ({{count}})",
+    "item.file-upload.queue.size": "Size",
+    "item.file-upload.queue.description": "Description (optional)",
+    "item.file-upload.queue.remove": "Remove",
+    "item.file-upload.queue.progress": "Uploading {{count}} files",
+    "item.file-upload.queue.error": "File {{name}} could not be added to queue!",
+    "item.file-upload.upload.error": "File {{name}} could not be uploaded!",
 
     "item-view.full.full-bitstreams.title": "Files in this item",
     "item-view.full.full-bitstreams.description.name": "name:",
@@ -101,15 +126,20 @@
     "item-view.full.full-metadata.thead.key": "Key",
     "item-view.full.full-metadata.thead.value": "Value",
     "item-view.full.full-metadata.thead.lang": "Language",
-    "item-view.header.authors": "author",
-    "item-view.header.bitstreams": "download",
-    "item-view.header.collections": "collections",
-    "item-view.header.date": "date",
-    "item-view.header.metadata": "metadata",
-    "item-view.header.uri": "uri",
-    "item-view.header.abstract": "abstract",
+    "item-view.full.full-metadata.thead.remove": "Remove",
+    
+    "item-view.header.authors": "Author",
+    "item-view.header.bitstreams": "Download",
+    "item-view.header.collections": "Collections",
+    "item-view.header.date": "Date",
+    "item-view.header.metadata": "Metadata",
+    "item-view.header.uri": "URI",
+    "item-view.header.abstract": "Abstract",
     "item-view.show-full": "Show full item record",
     "item-view.show-simple": "Show simple item record",
+    
+    "item-view.exit-edit-mode": "Exit edit mode",
+    "item-view.add-metadata": "Add metadata",
 
     "login.title": "Login",
     "login.confirm": "Login",
@@ -121,9 +151,54 @@
     "login.password.required": "Password is required",
     "login.unauthorized": "Incorrect email or password",
 
+    
+    "edit.mode": "Edit mode: click the pencil icon to edit field, enter or leave focus to submit, escape to cancel",
+
+    "update.success": "Successfully updated {{name}}",
+    "update.error": "Error while attempting to update {{name}}",
+    
+    "delete.success": "Successfully deleted {{name}}",
+    "delete.error": "Error while attempting to delete {{name}}",
+    
+
     "register.title": "Register",
 
     "settings.title": "Settings",
+
+
+    "sidebar.admin.edit.header" : "Edit the sidebar",
+    "sidebar.admin.edit.section-name" : "Section name",
+    "sidebar.admin.edit.child-section-name": "name",
+    "sidebar.admin.edit.child-section-url" : "url",
+    "sidebar.admin.edit.add-child" : "Add child section",
+    "sidebar.admin.edit.add-section" : "Add section",
+    "sidebar.admin.edit.save" : "Save changes",
+    "sidebar.help.header": "Help",
+    "sidebar.help.about": "About",
+    "sidebar.help.feedback": "Feedback",
+    "sidebar.account.header" : "Account",
+    "sidebar.account.login": "Login",
+    "sidebar.account.register": "Register",
+    "sidebar.account.logout" : "Logout",
+    "sidebar.submissions.header": "Submission",
+    "sidebar.submissions.submit": "Submit",
+    "sidebar.item-context.header" : "This item",
+    "sidebar.item-context.view" : "View",
+    "sidebar.item-context.edit" : "Edit",
+    "sidebar.context-collection.header": "Collection",
+    "sidebar.context-collection.view":"View",
+    "sidebar.context-collection.browse" : "Browse",
+    "sidebar.context-collection.edit": "Edit",
+    "sidebar.context-collection.create-item": "Create item",
+    "sidebar.context-community.header": "Community",
+    "sidebar.context-community.edit": "Edit",
+    "sidebar.context-community.view": "View",
+    "sidebar.context-community.create-collection": "Create collection",
+    "sidebar.context-community.create-community": "Create community",
+    "sidebar.context-home.header":"Home",
+    "sidebar.context-home.create-community": "Create new top-level community",
+    "sidebar.context-admin.header": "Admin",
+    "sidebar.context-admin.alter-sidebar" : "Edit sidebar",
 
     "setup.title": "Setup"
 }
